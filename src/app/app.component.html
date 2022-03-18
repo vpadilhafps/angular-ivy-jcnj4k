@@ -1,0 +1,124 @@
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngFor="let card of cards" class="col">
+      <div class="card h-100">
+        <img src="{{ card.imgUrl }}" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ card.title | uppercase }}</h5>
+          <p class="card-text">
+            {{ card.description }}
+          </p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">{{ card.extraInfo }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3 mb-3">
+  <ol class="list-group list-group-numbered">
+    <li
+      *ngFor="let aula of aulas"
+      class="list-group-item d-flex justify-content-between align-items-start"
+    >
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{ aula.nome }}</div>
+        {{ aula.conteudo }}
+      </div>
+
+      <span class="badge bg-primary rounded-pill">{{ aula.quantidade }}</span>
+    </li>
+  </ol>
+</div>
+
+<div class="container mb-3">
+  {{ date | date: 'hh:mm:ss' }}
+</div>
+
+<div class="container">
+  <button
+    *ngIf="buttonColor == 'VERDE'; else botaoVermelho"
+    type="button"
+    class="btn btn-success"
+  >
+    Successs
+  </button>
+  <ng-template #botaoVermelho>
+    <button type="button" class="btn btn-danger">Danger</button>
+  </ng-template>
+</div>
+
+<div class="container mt-3" [ngSwitch]="buttonColor">
+  <button *ngSwitchCase="'VERDE'" type="button" class="btn btn-success">
+    Success
+  </button>
+  <button *ngSwitchCase="'VERMELHO'" type="button" class="btn btn-danger">
+    Danger
+  </button>
+  <button *ngSwitchCase="'AMARELO'" type="button" class="btn btn-warning">
+    Warning
+  </button>
+  <button *ngSwitchDefault type="button" class="btn btn-dark">Dark</button>
+</div>
+
+<div class="container mt-3">
+  <ul class="list-group">
+    <li *ngFor="let nome of nomes; let idx = index" class="list-group-item">
+      {{ idx + 1 }} - {{ nome }}
+    </li>
+  </ul>
+  <div *ngIf="getValor() as abc">{{ abc }}</div>
+</div>
+
+<div *ngIf="nomes.length > 4 as x" class="container mt-3">
+  {{ x }}
+  <div class="alert alert-primary" role="alert">
+    Lista cheia com {{ nomes.length }} elementos
+  </div>
+</div>
+<br />
+<div class="container">
+  <p>Exemplo de interpolação: {{ textoQualquer }}</p>
+  <p>{{ 1 + 1 }}</p>
+  <p>Com função: {{ getValor() + 3 }}</p>
+  <p>{{ true && true }}</p>
+
+  <img src="{{ urlImage }}" />
+
+  <p>Sem Pipes: {{ toUppercase(textoQualquer) }}</p>
+  <p>Pipes: {{ textoQualquer | uppercase }}</p>
+  <p>Pipes: {{ textoQualquer | lowercase }}</p>
+  <p>{{ date | date: 'dd/MM/yyyy hh:mm:ss' }}</p>
+  <p>{{ valor | currency: 'BRL' }}</p>
+  <p>{{ 0.54 | percent }}</p>
+  <div>{{ 'EXEMPLO' | lowercase }}</div>
+</div>
+
+<div class="container mb-3">
+  <div class="alert" [ngClass]="getClassName()">
+    Utilizando ngClass com funcao
+  </div>
+
+  <div class="alert" [ngClass]="isError ? 'alert-danger' : 'alert-primary'">
+    Utilizando ngClass
+  </div>
+
+  <div
+    class="alert"
+    [class.alert-primary]="!isError"
+    [class.alert-danger]="isError"
+  >
+    Utilizando [class.]
+  </div>
+
+  <div class="container">
+    <input
+      (keyup)="onKeyUp($event)"
+      type="text"
+      class="form-control"
+      placeholder="Keyup example"
+    />
+  </div>
+</div>
